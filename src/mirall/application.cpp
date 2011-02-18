@@ -8,21 +8,26 @@
 #include "mirall/application.h"
 #include "mirall/folder.h"
 #include "mirall/gitfolder.h"
+#include "mirall/smbclient.h"
 
 namespace Mirall {
 
 Application::Application(int argc, char **argv) :
     QApplication(argc, argv)
 {
-    _folder = new GitFolder(QDir::homePath() + "/Mirall", this);
+    _folder = new GitFolder(QDir::homePath() + "/Mirall", "remote", this);
     setApplicationName("Mirall");
     setupActions();
     setupSystemTray();
     setupContextMenu();
+
+    _smbClient = new SmbClient();
+    QObject::connect(_smbClient, SIGNAL(scanResult(const QString &)), this, SLOT(slotShare(const QString &)));
 }
 
 Application::~Application()
 {
+    delete _smbClient;
 }
 
 void Application::setupActions()
@@ -57,6 +62,13 @@ void Application::setupContextMenu()
 void Application::slotAddFolder()
 {
     qDebug() << "add a folder here...";
+    _smbClient->scan();
+    _smbClient->scan();
+}
+
+void Application::slotShare(const QString &share)
+{
+    qDebug() << "SHARE: " << share;
 }
 
 

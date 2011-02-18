@@ -9,6 +9,7 @@ class QSystemTrayIcon;
 namespace Mirall {
 
 class Folder;
+class SmbClient;
 
 class Application : public QApplication
 {
@@ -22,6 +23,8 @@ protected slots:
 
     void slotAddFolder();
 
+    void slotShare(const QString &share);
+
 protected:
 
     void setupActions();
@@ -33,6 +36,7 @@ private:
     QSystemTrayIcon *_tray;
     QAction *_actionQuit;
     QAction *_actionAddFolder;
+    SmbClient *_smbClient;
 };
 
 } // namespace Mirall
