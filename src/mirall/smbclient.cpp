@@ -50,12 +50,20 @@ SmbScanThread::SmbScanThread(QObject *parent, QMutex *scanMutex)
 
 SmbScanThread::~SmbScanThread()
 {
+    qDebug() << "SmbScanThread::~SmbScanThread";
+
     delete d;
 }
 
 void SmbScanThread::run()
 {
+    qDebug() << "before mutex lock";
+
     QMutexLocker(d->scanMutex);
+
+    qDebug() << "danger zone";
+
+
     int dir;
     struct stat stat;
     struct smbc_dirent *dirent;
@@ -81,6 +89,9 @@ void SmbScanThread::run()
         }
     }
     smbc_closedir(dir);
+
+    qDebug() << "finish danger zone";
+
 }
 
 
@@ -95,7 +106,7 @@ SmbClient::SmbClient(QObject *parent)
     : QObject(parent)
     , d(new Private)
 {
-//    smbc_init();
+    //smbc_init();
     /* Allocate a new context */
     d->context = smbc_new_context();
     if (!d->context) {
@@ -125,6 +136,8 @@ void SmbClient::scan()
 
 SmbClient::~SmbClient()
 {
+    qDebug() << "SmbClient::~SmbClient";
+
     smbc_free_context(d->context, 0);
     delete d;
 }
