@@ -3,6 +3,9 @@
 #include <QIcon>
 #include <QMenu>
 #include <QSystemTrayIcon>
+#include <QNetworkConfigurationManager>
+#include <QDesktopServices>
+#include <QStringList>
 
 #include "mirall/constants.h"
 #include "mirall/application.h"
@@ -13,7 +16,8 @@
 namespace Mirall {
 
 Application::Application(int argc, char **argv) :
-    QApplication(argc, argv)
+    QApplication(argc, argv),
+    _networkMgr(new QNetworkConfigurationManager(this))
 {
     INotify::initialize();
 
@@ -22,6 +26,20 @@ Application::Application(int argc, char **argv) :
     setupActions();
     setupSystemTray();
     setupContextMenu();
+
+    qDebug() << "network is " << _networkMgr->isOnline();
+    foreach (QNetworkConfiguration netCfg, _networkMgr->allConfigurations(QNetworkConfiguration::Active)) {
+        qDebug() << "Network:" << netCfg.identifier();
+    }
+
+    QDir storageDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation));
+
+    qDebug() << storageDir.path();
+
+    qDebug() << storageDir.mkpath("folders");
+
+    setupKnownFolders();
+
 }
 
 Application::~Application()
@@ -63,6 +81,16 @@ void Application::slotAddFolder()
     qDebug() << "add a folder here...";
 }
 
+void Application::setupKnownFolders()
+{
+    QDir dir(
+        QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/folders");
+    dir.setFilter(QDir::Files);
+    QStringList list = dir.entryList();
+    foreach (QString file, list) {
+        qDebug() << file;
+    }
+}
 
 } // namespace Mirall
 

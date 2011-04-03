@@ -5,6 +5,7 @@
 
 class QAction;
 class QSystemTrayIcon;
+class QNetworkConfigurationManager;
 
 namespace Mirall {
 
@@ -28,11 +29,15 @@ protected:
     void setupSystemTray();
     void setupContextMenu();
 
+    void setupKnownFolders();
+
 private:
     Folder *_folder;
     QSystemTrayIcon *_tray;
     QAction *_actionQuit;
     QAction *_actionAddFolder;
+    QNetworkConfigurationManager *_networkMgr;
+
 };
 
 } // namespace Mirall
