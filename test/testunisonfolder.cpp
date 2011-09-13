@@ -28,15 +28,12 @@ void TestUnisonFolder::testSyncFiles()
 
     qDebug() << tmp1.path() << tmp2.path();
 
-    Mirall::INotify::initialize();
     Mirall::UnisonFolder folder("alias", tmp1.path(), tmp2.path(), this);
 
     // create a directory in the first
     QDir(tmp1.path()).mkdir("foo");
     QTest::qWait(1000);
     QVERIFY(QDir(tmp2.path() + "/foo").exists());
-
-    Mirall::INotify::cleanup();
 }
 
 QTEST_MAIN(TestUnisonFolder)

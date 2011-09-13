@@ -20,7 +20,6 @@ void TestFolderWatcher::cleanupTestCase()
 
 void TestFolderWatcher::testFilesAdded()
 {
-    Mirall::INotify::initialize();
     Mirall::TemporaryDir tmp;
     Mirall::FolderWatcher watcher(tmp.path());
 
@@ -58,9 +57,6 @@ void TestFolderWatcher::testFilesAdded()
 
     // 1 file changes
     QCOMPARE(spy.count(), 1);
-
-
-    Mirall::INotify::cleanup();
 }
 
 QTEST_MAIN(TestFolderWatcher)

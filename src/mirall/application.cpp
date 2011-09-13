@@ -41,8 +41,6 @@ Application::Application(int argc, char **argv) :
     _folderSyncCount(0),
     _contextMenu(0)
 {
-    INotify::initialize();
-
     setApplicationName("Mirall");
     setQuitOnLastWindowClosed(false);
 
@@ -73,7 +71,6 @@ Application::Application(int argc, char **argv) :
 Application::~Application()
 {
     qDebug() << "* Mirall shutdown";
-    INotify::cleanup();
 
     delete _networkMgr;
     delete _tray;
