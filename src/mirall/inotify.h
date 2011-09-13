@@ -29,6 +29,11 @@ class QSocketNotifier;
 namespace Mirall
 {
 
+/**
+ * INotify wrappers that powers the FolderWatcher class
+ *
+ * See FolderWatcher on why QFileSystemWatcher is not used.
+ */
 class INotify : public QObject
 {
     Q_OBJECT

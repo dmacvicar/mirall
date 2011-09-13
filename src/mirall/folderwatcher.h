@@ -34,6 +34,11 @@ namespace Mirall {
  *
  * If too many changes happen in a short time interval,
  * it will accumulate and be fired together later.
+ *
+ * The reasons why this class exist instead of using
+ * QFileSystemWatcher are:
+ * - No recursive watch support
+ * - https://bugreports.qt.nokia.com//browse/QTBUG-3576
  */
 class FolderWatcher : public QObject
 {
