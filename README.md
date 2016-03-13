@@ -1,5 +1,5 @@
 
-[![deprecated](http://badges.github.io/stability-badges/dist/deprecated.svg)](http://github.com/badges/stability-badges)
+[![deprecated](https://img.shields.io/badge/maintained%3F-no!-red.svg?style=flat)](https://github.com/owncloud/client)
 
 >This project is not longer maintained and I keep this repo for archiving purposes. Mirall was forked by [Owncloud](https://github.com/owncloud) as the base for their client and the new project [is maintained at their repository](https://github.com/owncloud/client).
 
